@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your list of games</title>
+    <link rel="stylesheet" href="../static/list_of_games-style.css">
+</head>
+<body>
+
+
+<div class="main">
+    <header class="header">
+        <div>
+            <h1>Your Game List</h1>
+            <p>Hello, {{ username }}!</p>
+        </div>
+
+        <form action="/logout" method="get">
+            <button type="submit">Выйти</button>
+        </form>
+    </header>
+
+    <div class="statistics">
+        <div>
+            <span>Завершено:</span>
+            <strong>0 {{ games_completed }}</strong>
+        </div>
+
+        <div>
+            <span>Летсплей: </span>
+            <strong>0 {{ games_letsplay }}</strong>
+        </div>
+    </div>
+
+    <div class="game-columns">
+        {% for status in status_games %}
+            <section class="game-column">
+                <h3>{{ status.status_title_ru}}</h3>
+                {% for game in status.games %}
+                    <a href="/games/{{ game.id }}">
+                        {{ game.title }}
+                    </a>
+                {% endfor %}
+            </section>
+        {% endfor %}
+    </div>
+
+    <div class="add_game">
+        <label>Добавить игру</label>
+        <form action="/addgame" method="post">
+            <input type="text" placeholder="game title" name="game_title">
+            <input type="text" placeholder="game art" name="game_art">
+            <select name="platform">
+                <option value="PC">PC</option>
+                <option value="PlayStation 5">PlayStation 5</option>
+                <option value="Nintendo Switch">Nintendo Switch</option>
+                <option value="Xbox">Xbox</option>
+            </select>
+            <input type="text" placeholder="developer" name="developer">
+            <input type="date" placeholder="release_date" name="release_date">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+
+    <div>
+        <form action="/logout" method="get">
+            <button>Выход</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

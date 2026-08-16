@@ -1,0 +1,14 @@
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+.forms{
+    display: flex;
+}
+
+
+.authorization,
+.registration {
+    flex: 0.5;
+}
