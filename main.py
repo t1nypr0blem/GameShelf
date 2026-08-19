@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from http.client import HTTPException
 from fastapi import FastAPI, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
@@ -23,7 +22,10 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/")
+@app.get("/",
+         summary="Главная страница",
+         description="Страница входа и регистрации"
+         )
 def main_page(
         request: Request
 ):
@@ -34,7 +36,10 @@ def main_page(
         name = "main-page.html",
     )
 
-@app.get("/listofgames")
+@app.get("/listofgames",
+         summary="Твой список игр",
+         description="После успешной авторизации пользователь попадает сюда"
+         )
 def listofgames(
         request: Request,
         current_user: User = Depends(get_current_user),
@@ -62,7 +67,10 @@ def listofgames(
         }
     )
 
-@app.post("/register")
+@app.post("/register",
+          summary="Регистрация пользователя",
+          description="Регистрация пользователя"
+          )
 def register(
         request: Request,
         nickname:str = Form(...),
@@ -97,7 +105,10 @@ def register(
         status_code = 303,
     )
 
-@app.post("/login")
+@app.post("/login",
+          summary="Авторизация пользователя",
+          description="Авторизация пользователя"
+          )
 def login_user(
         request: Request,
         email: str = Form(...),
@@ -131,7 +142,10 @@ def login_user(
 
         return response
 
-@app.post("/addgame")
+@app.post("/addgame",
+          summary="Добавить игру",
+          description="Добавляет игру в общий список"
+          )
 def add_game(
     game_title: str = Form(...),
     #game_art: str,
@@ -159,7 +173,10 @@ def add_game(
         status_code = 303,
     )
 
-@app.get("/logout")
+@app.get("/logout",
+         summary="Выход",
+         description="Завершить сессию"
+         )
 def logout():
     response = RedirectResponse("/", status_code=303)
     response.delete_cookie("access_token")

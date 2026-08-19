@@ -14,6 +14,6 @@ SessionLocal = sessionmaker(bind=engine) #все будущие сессии д�
 Base = declarative_base() #база для всех моделей
 
 #проверка соединения
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT 1")) #execute запускает команду к базе данных
-    print(result.fetchone())
+# with engine.connect() as conn:
+#     result = conn.execute(text("SELECT 1")) #execute запускает команду к базе данных
+#     print(result.fetchone())
